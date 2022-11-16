@@ -16,14 +16,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="testJCD">
+  <xs:element name="TestJCD">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="testJCDResponse">
+  <xs:element name="TestJCDResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TestJCDResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDataUsingDataContract">

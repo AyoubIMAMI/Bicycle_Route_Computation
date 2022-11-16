@@ -19,7 +19,6 @@ namespace RoutingServer
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {
-                Console.WriteLine("In the CallTest method");
                 // Get all the stations
                 string allStationsList = await client.GetStringAsync("https://api.jcdecaux.com/vls/v3/stations?contract=besancon&apiKey=29383ef5f8094df302e81d893499258dc7f08a5b");
                 return allStationsList;
@@ -28,7 +27,7 @@ namespace RoutingServer
             {
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", e.Message);
-                return null;
+                return "\nException Caught!";
             }
         }
 

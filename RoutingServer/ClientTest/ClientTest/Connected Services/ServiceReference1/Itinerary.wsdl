@@ -13,11 +13,11 @@
   <wsdl:message name="IItinerary_GetItinerary_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetItineraryResponse" />
   </wsdl:message>
-  <wsdl:message name="IItinerary_testJCD_InputMessage">
-    <wsdl:part name="parameters" element="tns:testJCD" />
+  <wsdl:message name="IItinerary_TestJCD_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestJCD" />
   </wsdl:message>
-  <wsdl:message name="IItinerary_testJCD_OutputMessage">
-    <wsdl:part name="parameters" element="tns:testJCDResponse" />
+  <wsdl:message name="IItinerary_TestJCD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestJCDResponse" />
   </wsdl:message>
   <wsdl:message name="IItinerary_GetDataUsingDataContract_InputMessage">
     <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
@@ -30,9 +30,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IItinerary/GetItinerary" message="tns:IItinerary_GetItinerary_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IItinerary/GetItineraryResponse" message="tns:IItinerary_GetItinerary_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="testJCD">
-      <wsdl:input wsaw:Action="http://tempuri.org/IItinerary/testJCD" message="tns:IItinerary_testJCD_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IItinerary/testJCDResponse" message="tns:IItinerary_testJCD_OutputMessage" />
+    <wsdl:operation name="TestJCD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IItinerary/TestJCD" message="tns:IItinerary_TestJCD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IItinerary/TestJCDResponse" message="tns:IItinerary_TestJCD_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetDataUsingDataContract">
       <wsdl:input wsaw:Action="http://tempuri.org/IItinerary/GetDataUsingDataContract" message="tns:IItinerary_GetDataUsingDataContract_InputMessage" />
@@ -50,8 +50,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="testJCD">
-      <soap:operation soapAction="http://tempuri.org/IItinerary/testJCD" style="document" />
+    <wsdl:operation name="TestJCD">
+      <soap:operation soapAction="http://tempuri.org/IItinerary/TestJCD" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

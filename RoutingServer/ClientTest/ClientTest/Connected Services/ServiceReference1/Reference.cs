@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestClient.ServiceReference1 {
+namespace ClientTest.ServiceReference1 {
     using System.Runtime.Serialization;
     using System;
     
@@ -84,26 +84,26 @@ namespace TestClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetItinerary", ReplyAction="http://tempuri.org/IItinerary/GetItineraryResponse")]
         System.Threading.Tasks.Task<string> GetItineraryAsync(string destinationAddress, string originAddress);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/testJCD", ReplyAction="http://tempuri.org/IItinerary/testJCDResponse")]
-        void testJCD();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/TestJCD", ReplyAction="http://tempuri.org/IItinerary/TestJCDResponse")]
+        string TestJCD();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/testJCD", ReplyAction="http://tempuri.org/IItinerary/testJCDResponse")]
-        System.Threading.Tasks.Task testJCDAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IItinerary/GetDataUsingDataContractResponse")]
-        TestClient.ServiceReference1.CompositeType GetDataUsingDataContract(TestClient.ServiceReference1.CompositeType composite);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/TestJCD", ReplyAction="http://tempuri.org/IItinerary/TestJCDResponse")]
+        System.Threading.Tasks.Task<string> TestJCDAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IItinerary/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<TestClient.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(TestClient.ServiceReference1.CompositeType composite);
+        ClientTest.ServiceReference1.CompositeType GetDataUsingDataContract(ClientTest.ServiceReference1.CompositeType composite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IItinerary/GetDataUsingDataContractResponse")]
+        System.Threading.Tasks.Task<ClientTest.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ClientTest.ServiceReference1.CompositeType composite);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IItineraryChannel : TestClient.ServiceReference1.IItinerary, System.ServiceModel.IClientChannel {
+    public interface IItineraryChannel : ClientTest.ServiceReference1.IItinerary, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ItineraryClient : System.ServiceModel.ClientBase<TestClient.ServiceReference1.IItinerary>, TestClient.ServiceReference1.IItinerary {
+    public partial class ItineraryClient : System.ServiceModel.ClientBase<ClientTest.ServiceReference1.IItinerary>, ClientTest.ServiceReference1.IItinerary {
         
         public ItineraryClient() {
         }
@@ -132,19 +132,19 @@ namespace TestClient.ServiceReference1 {
             return base.Channel.GetItineraryAsync(destinationAddress, originAddress);
         }
         
-        public void testJCD() {
-            base.Channel.testJCD();
+        public string TestJCD() {
+            return base.Channel.TestJCD();
         }
         
-        public System.Threading.Tasks.Task testJCDAsync() {
-            return base.Channel.testJCDAsync();
+        public System.Threading.Tasks.Task<string> TestJCDAsync() {
+            return base.Channel.TestJCDAsync();
         }
         
-        public TestClient.ServiceReference1.CompositeType GetDataUsingDataContract(TestClient.ServiceReference1.CompositeType composite) {
+        public ClientTest.ServiceReference1.CompositeType GetDataUsingDataContract(ClientTest.ServiceReference1.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<TestClient.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(TestClient.ServiceReference1.CompositeType composite) {
+        public System.Threading.Tasks.Task<ClientTest.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ClientTest.ServiceReference1.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
     }
