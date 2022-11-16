@@ -3,6 +3,8 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 public class Main {
+    private static final int DESTINATION = 0;
+    private static final int ORIGIN = 1;
 
     public static void main(String[] args) {
         try {
@@ -17,8 +19,8 @@ public class Main {
 
             // Will ask the user for his destination and origin
             List<String> addresses = userInterface.askForOriginAndDestination();
-            String destination = addresses.get(0);
-            String origin = addresses.get(1);
+            String destination = addresses.get(DESTINATION);
+            String origin = addresses.get(ORIGIN);
 
             // Get an itinerary
             itineraryStub.getItinerary(destination, origin);
