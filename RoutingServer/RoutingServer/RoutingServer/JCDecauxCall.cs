@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using static RoutingServer.Itinerary;
 
 namespace RoutingServer
 {
     internal class JCDecauxCall
     {
         //JCDecaux API Key = 29383ef5f8094df302e81d893499258dc7f08a5b
-
-        // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
-        static readonly HttpClient client = new HttpClient();
+        static string JCDKey = "29383ef5f8094df302e81d893499258dc7f08a5b";
 
         public static async Task<string> CallTest()
         {
@@ -20,7 +19,7 @@ namespace RoutingServer
             try
             {
                 // Get all the stations
-                string allStationsList = await client.GetStringAsync("https://api.jcdecaux.com/vls/v3/stations?contract=besancon&apiKey=29383ef5f8094df302e81d893499258dc7f08a5b");
+                string allStationsList = await client.GetStringAsync("https://api.jcdecaux.com/vls/v3/stations?contract=besancon&apiKey=" + JCDKey);
                 return allStationsList;
             }
             catch (HttpRequestException e)

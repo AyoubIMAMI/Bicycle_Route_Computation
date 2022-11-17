@@ -15,15 +15,18 @@ namespace ClientTest
 
             ItineraryClient itineraryClient = new ItineraryClient();
 
-            Console.WriteLine("Before TestJCD\n");
-            Console.WriteLine(itineraryClient.TestJCD() + "\n");
-            Console.WriteLine("After TestJCD\n");
+            Console.WriteLine("Enter your destination:");
+            string destination = Console.ReadLine();
+
+            Console.WriteLine("\nEnter your location:");
+            string location = Console.ReadLine();
+
+            Console.WriteLine("\n" + itineraryClient.GetItinerary(destination, location) + "\n");
 
             // Fermez toujours le client.
             itineraryClient.Close();
 
             Console.WriteLine("End\nPress enter to exit\n");
-
             Console.ReadLine();
         }
     }
