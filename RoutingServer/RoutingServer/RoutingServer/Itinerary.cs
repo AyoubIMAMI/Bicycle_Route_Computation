@@ -17,19 +17,13 @@ namespace RoutingServer
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
         public static readonly HttpClient client = new HttpClient();
 
-        public async Task<string> GetItinerary(string destinationAddress, string originAddress)
+        public async Task<double> GetItinerary(string destinationAddress, string originAddress)
         {
-            string destinationPosition = await OpenRouteServiceCall.GetPositionFromLocation(destinationAddress);
-            Geocode destinationGeocode = JsonSerializer.Deserialize<Geocode>(destinationAddress);
-            double destinationLatitude = destinationGeocode.Features.Geometry.Coordinates.latitude;
-            double destinationLongitude = destinationGeocode.Features.Geometry.Coordinates.longitude;
+            float[] destinationCoordinates = await OpenRouteServiceCall.GetCoordinatesFromLocation(destinationAddress);
 
-            string originPosition = await OpenRouteServiceCall.GetPositionFromLocation(originAddress);
-            Geocode originGeocode = JsonSerializer.Deserialize<Geocode>(originPosition);
-            double originLatitude = originGeocode.Features.Geometry.Coordinates.latitude;
-            double originLongitude = originGeocode.Features.Geometry.Coordinates.longitude;
+            float[] originCoordinates = await OpenRouteServiceCall.GetCoordinatesFromLocation(originAddress);
 
-            return await OpenRouteServiceCall.GetPositionFromLocation(originAddress);
+            return destinationCoordinates[0];
         }
 
         public async Task<string> TestJCD()

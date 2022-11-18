@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RoutingServer
+﻿
+public class Geocode
 {
-    internal class Geocode
-    {
-        public Geocode Features { get; }
-    }
+    public Feature[] features { get; set; }
+}
 
-    internal class Features
-    {
-        public Geometry Geometry { get; }
-    }
+public class Feature
+{
+    public Geometry geometry { get; set; }
+}
 
-    internal class Geometry
-    {
-        public Coordinates Coordinates { get; }
-    }
-
-    internal class Coordinates
-    {
-        public double latitude { get; }
-        public double longitude { get; }
-    }
+public class Geometry
+{
+    public string type { get; set; }
+    public float[] coordinates { get; set; }
 }

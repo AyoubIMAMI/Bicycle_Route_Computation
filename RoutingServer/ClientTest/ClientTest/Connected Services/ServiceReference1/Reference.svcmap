@@ -23,7 +23,6 @@
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="Itinerary.wsdl" MetadataType="Wsdl" ID="97c1d739-ac91-41fa-b910-640333aed571" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingServer/Service1/?wsdl" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="7949a4e8-6418-450c-a7a2-7daff72da258" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingServer/Service1/?xsd=xsd2" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="30efbef7-d578-46a0-a148-74a27835e2e5" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingServer/Service1/?xsd=xsd1" />
     <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="0cb0e23b-95d5-470d-a17a-fa574a476709" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/RoutingServer/Service1/?xsd=xsd0" />
   </Metadata>
