@@ -16,16 +16,10 @@ namespace ClientTest.ServiceReference1 {
     public interface IItinerary {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetItinerary", ReplyAction="http://tempuri.org/IItinerary/GetItineraryResponse")]
-        string GetItinerary(string destinationAddress, string originAddress);
+        double GetItinerary(string destinationAddress, string originAddress);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetItinerary", ReplyAction="http://tempuri.org/IItinerary/GetItineraryResponse")]
-        System.Threading.Tasks.Task<string> GetItineraryAsync(string destinationAddress, string originAddress);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/TestJCD", ReplyAction="http://tempuri.org/IItinerary/TestJCDResponse")]
-        string TestJCD();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/TestJCD", ReplyAction="http://tempuri.org/IItinerary/TestJCDResponse")]
-        System.Threading.Tasks.Task<string> TestJCDAsync();
+        System.Threading.Tasks.Task<double> GetItineraryAsync(string destinationAddress, string originAddress);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,20 +49,12 @@ namespace ClientTest.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public string GetItinerary(string destinationAddress, string originAddress) {
+        public double GetItinerary(string destinationAddress, string originAddress) {
             return base.Channel.GetItinerary(destinationAddress, originAddress);
         }
         
-        public System.Threading.Tasks.Task<string> GetItineraryAsync(string destinationAddress, string originAddress) {
+        public System.Threading.Tasks.Task<double> GetItineraryAsync(string destinationAddress, string originAddress) {
             return base.Channel.GetItineraryAsync(destinationAddress, originAddress);
-        }
-        
-        public string TestJCD() {
-            return base.Channel.TestJCD();
-        }
-        
-        public System.Threading.Tasks.Task<string> TestJCDAsync() {
-            return base.Channel.TestJCDAsync();
         }
     }
 }

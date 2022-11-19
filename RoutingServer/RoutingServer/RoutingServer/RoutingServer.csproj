@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -79,6 +80,7 @@
     <Compile Include="JCDecauxCall.cs" />
     <Compile Include="IItinerary.cs" />
     <Compile Include="Geocode.cs" />
+    <Compile Include="JCDObject.cs" />
     <Compile Include="OpenRouteServiceCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Itinerary.cs" />

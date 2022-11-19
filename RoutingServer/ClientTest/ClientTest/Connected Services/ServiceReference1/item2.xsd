@@ -11,19 +11,7 @@
   <xs:element name="GetItineraryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetItineraryResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="TestJCD">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="TestJCDResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="TestJCDResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="GetItineraryResult" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

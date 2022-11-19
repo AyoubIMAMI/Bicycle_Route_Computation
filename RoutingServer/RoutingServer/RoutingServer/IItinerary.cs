@@ -12,9 +12,6 @@ namespace RoutingServer
     public interface IItinerary
     {
         [OperationContract]
-        Task<double> GetItinerary(string destinationAddress, string originAddress);
-
-        [OperationContract]
-        Task<string> TestJCD();
+        Task<Double> GetItinerary(string destinationAddress, string originAddress);
     }
 }
