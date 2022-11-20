@@ -22,7 +22,6 @@ namespace RoutingServer
         Double originStationDistace;
         Double stationToStationDistance;
         Double stationDestinationDistance;
-        public static Boolean noNull = true;
 
         public async Task<Double> GetItinerary(string destinationAddress, string originAddress)
         {
@@ -37,7 +36,6 @@ namespace RoutingServer
             Position destinationCoordinates = openRouteServiceCall.GetCoordinates(0);
             Position originCoordinates = openRouteServiceCall.GetCoordinates(1);
 
-            while (noNull) { int count = 0; }
             GeoCoordinate destinationGeo = new GeoCoordinate(destinationCoordinates.latitude, destinationCoordinates.longitude);
             GeoCoordinate originGeo = new GeoCoordinate(originCoordinates.latitude, originCoordinates.longitude);
             originDestinationDistance = originGeo.GetDistanceTo(destinationGeo);
