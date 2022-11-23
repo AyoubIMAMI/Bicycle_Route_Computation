@@ -16,10 +16,10 @@ namespace ClientTest.ServiceReference1 {
     public interface IItinerary {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetItinerary", ReplyAction="http://tempuri.org/IItinerary/GetItineraryResponse")]
-        double GetItinerary(string destinationAddress, string originAddress);
+        string GetItinerary(string destinationAddress, string originAddress);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IItinerary/GetItinerary", ReplyAction="http://tempuri.org/IItinerary/GetItineraryResponse")]
-        System.Threading.Tasks.Task<double> GetItineraryAsync(string destinationAddress, string originAddress);
+        System.Threading.Tasks.Task<string> GetItineraryAsync(string destinationAddress, string originAddress);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,11 +49,11 @@ namespace ClientTest.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public double GetItinerary(string destinationAddress, string originAddress) {
+        public string GetItinerary(string destinationAddress, string originAddress) {
             return base.Channel.GetItinerary(destinationAddress, originAddress);
         }
         
-        public System.Threading.Tasks.Task<double> GetItineraryAsync(string destinationAddress, string originAddress) {
+        public System.Threading.Tasks.Task<string> GetItineraryAsync(string destinationAddress, string originAddress) {
             return base.Channel.GetItineraryAsync(destinationAddress, originAddress);
         }
     }

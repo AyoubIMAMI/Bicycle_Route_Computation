@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Device.Location;
-
+using System.Globalization;
 
 namespace RoutingServer
 {
@@ -18,17 +18,12 @@ namespace RoutingServer
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
         public static readonly HttpClient client = new HttpClient();
 
-        Double originDestinationDistance;
-        Double originStationDistace;
-        Double stationToStationDistance;
-        Double stationDestinationDistance;
-
-        public async Task<Double> GetItinerary(string destinationAddress, string originAddress)
+        public async Task<string> GetItinerary(string destinationAddress, string originAddress)
         {
             OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall();
             JCDecauxCall jCDecauxCall = new JCDecauxCall();
 
-            openRouteServiceCall.FillUpDataFromLocation(destinationAddress, originAddress);
+            await openRouteServiceCall.FillUpDataFromLocation(destinationAddress, originAddress);
 
             string destinationCity = openRouteServiceCall.GetCity(0);
             string originCity = openRouteServiceCall.GetCity(1);
@@ -36,36 +31,85 @@ namespace RoutingServer
             Position destinationCoordinates = openRouteServiceCall.GetCoordinates(0);
             Position originCoordinates = openRouteServiceCall.GetCoordinates(1);
 
-            GeoCoordinate destinationGeo = new GeoCoordinate(destinationCoordinates.latitude, destinationCoordinates.longitude);
-            GeoCoordinate originGeo = new GeoCoordinate(originCoordinates.latitude, originCoordinates.longitude);
-            originDestinationDistance = originGeo.GetDistanceTo(destinationGeo);
+            ORSDirections foot = await openRouteServiceCall.GetStepData(originCoordinates, destinationCoordinates, "foot-walking");
 
             List<JCDStation> stations = await jCDecauxCall.GetStationsFromContract(destinationCity);
+
+            if (stations == null)
+            {
+                return StepsByFoot(originAddress, destinationAddress, foot);
+            }
+
             JCDStation closestStationFromDestination = ClosestStationFromLocation(stations, destinationCoordinates);
             JCDStation closestStationFromOrigin;
 
             if (!destinationCity.Equals(originCity))
             {
                 List<JCDStation> originStations = await jCDecauxCall.GetStationsFromContract(originCity);
+                if (originStations == null)
+                {
+                    return StepsByFoot(originAddress, destinationAddress, foot);
+                }
                 closestStationFromOrigin = ClosestStationFromLocation(originStations, originCoordinates);
             }
             else
                 closestStationFromOrigin = ClosestStationFromLocation(stations, originCoordinates);
 
-            originStationDistace = ComputeDistances(new Position(originCoordinates.latitude, originCoordinates.longitude), new Position(closestStationFromOrigin.position.latitude, closestStationFromOrigin.position.longitude));
-            stationToStationDistance = ComputeDistances(new Position(closestStationFromOrigin.position.latitude, closestStationFromOrigin.position.longitude), new Position(closestStationFromDestination.position.latitude, closestStationFromDestination.position.longitude));
-            stationDestinationDistance = ComputeDistances(new Position(closestStationFromDestination.position.latitude, closestStationFromDestination.position.longitude), new Position(destinationCoordinates.latitude, destinationCoordinates.longitude));
+            ORSDirections originStation = await openRouteServiceCall.GetStepData(originCoordinates, closestStationFromOrigin.position, "foot-walking");
+            ORSDirections stationToStation = await openRouteServiceCall.GetStepData(closestStationFromOrigin.position, closestStationFromDestination.position, "cycling-regular");
+            ORSDirections stationDestination = await openRouteServiceCall.GetStepData(closestStationFromDestination.position, destinationCoordinates, "foot-walking");
 
-            Double totalDistance = originStationDistace + stationToStationDistance + stationDestinationDistance;
+            double originStationDuration = originStation.features[0].properties.segments[0].duration;
+            double stationToStationDuration = stationToStation.features[0].properties.segments[0].duration;
+            double stationDestinationDuration = stationDestination.features[0].properties.segments[0].duration;
 
-            return totalDistance;
+            double footDuration = foot.features[0].properties.segments[0].duration;
+
+            if (footDuration < (originStationDuration + stationToStationDuration + stationDestinationDuration))
+            {
+                return StepsByFoot(originAddress, destinationAddress, foot);
+            }
+
+            //return string bike steps
+            return StepsByBike(originAddress, destinationAddress, closestStationFromOrigin, closestStationFromDestination, originStation, stationToStation, stationDestination);
         }
 
-        private Double ComputeDistances(Position start, Position arrival)
+        private string Steps(ORSDirections directions)
         {
-            GeoCoordinate geoStart = new GeoCoordinate(start.latitude, start.longitude);
-            GeoCoordinate geoArrival = new GeoCoordinate(arrival.latitude, arrival.longitude);
-            return geoStart.GetDistanceTo(geoArrival);
+            string allSteps = "";
+            Step[] steps = directions.features[0].properties.segments[0].steps;
+            double totalDistance = directions.features[0].properties.segments[0].distance;
+            double totalDuration = directions.features[0].properties.segments[0].duration;
+
+            foreach (Step step in steps)
+            {
+                allSteps += step.instruction;
+                allSteps += "\n     Distance to do (m): " + step.distance + "(time (s): " + step.duration + ")";
+                allSteps += "\n     Distance left  (m): " + (totalDistance - step.distance);
+                allSteps += "\n     Time left      (s): " + (totalDuration - step.duration);
+            }
+
+            return allSteps;
+        }
+
+        private string StepsByFoot(string originAddress, string destinationAddress, ORSDirections foot)
+        {
+            string footDirections = "--- Steps from " + originAddress + " to " + destinationAddress + " by foot ---\n";
+            return (footDirections + Steps(foot));
+        }
+
+        private string StepsByBike(string originAddress, string destinationAddress, JCDStation closestOriginStation, JCDStation closestDestinationStation, ORSDirections originStation, ORSDirections stationToStation, ORSDirections stationDestination)
+        {
+            string bikeDirections = "--- Steps from " + originAddress + " to " + closestOriginStation.name + " by foot ---\n";
+            bikeDirections += Steps(originStation);
+
+            bikeDirections += "\n\n--- Steps from " + closestOriginStation.name + " to " + closestDestinationStation.name + " by bike ---\n";
+            bikeDirections += Steps(stationToStation);
+
+            bikeDirections += "\n\n--- Steps from " + closestDestinationStation.name + " to " + destinationAddress + " by foot ---\n";
+            bikeDirections += Steps(stationDestination);
+
+            return bikeDirections;
         }
 
         private JCDStation ClosestStationFromLocation(List<JCDStation> stations, Position coordinates)

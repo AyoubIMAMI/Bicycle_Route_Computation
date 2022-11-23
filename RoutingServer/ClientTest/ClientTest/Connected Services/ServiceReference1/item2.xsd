@@ -11,7 +11,7 @@
   <xs:element name="GetItineraryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetItineraryResult" type="xs:double" />
+        <xs:element minOccurs="0" name="GetItineraryResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -20,20 +21,20 @@ namespace RoutingServer
         string destinationCity;
         string originCity;
 
-        public void FillUpDataFromLocation(string destinationLocation, string originLocation)
+        public async Task FillUpDataFromLocation(string destinationLocation, string originLocation)
         {
-            FillUp(destinationLocation, 0);
-            FillUp(originLocation, 1);
+            await FillUp(destinationLocation, 0);
+            await FillUp(originLocation, 1);
         }
 
-        private async void FillUp(string location, int difference)
+        private async Task FillUp(string location, int difference)
         {
             // Get the location position
             string locationData = await GetDataFromLocation(location);
-            Rootobject orsObject = JsonSerializer.Deserialize<Rootobject>(locationData);
+            ORSGeocode orsObject = JsonSerializer.Deserialize<ORSGeocode>(locationData);
 
-            Double latitude = Convert.ToDouble(orsObject.features[0].geometry.coordinates[0]);
-            Double longitude = Convert.ToDouble(orsObject.features[0].geometry.coordinates[1]);
+            Double longitude = Convert.ToDouble(orsObject.features[0].geometry.coordinates[0]);
+            Double latitude = Convert.ToDouble(orsObject.features[0].geometry.coordinates[1]);
 
             if (difference == 0)
             {
@@ -45,6 +46,7 @@ namespace RoutingServer
                 originCoordinates = new Position(latitude, longitude);
                 originCity = orsObject.geocoding.query.parsed_text.city;
             }
+           
         }
 
         private async Task<string> GetDataFromLocation(string location)
@@ -60,6 +62,27 @@ namespace RoutingServer
                 Console.WriteLine();
                 Console.WriteLine("Message :{0} ", e.Message);
                 return "\nException Caught!";
+            }
+        }
+
+        public async Task<ORSDirections> GetStepData(Position start, Position end, string transport)
+        {
+            // Call asynchronous network methods in a try/catch block to handle exceptions.
+            try
+            {//
+                // Get the location position
+                string apiKeyQuery = "?api_key=" + ORSKey;
+                string startQuery = "&start=" + start.longitude.ToString(CultureInfo.InvariantCulture) + "," + start.latitude.ToString(CultureInfo.InvariantCulture);
+                string endQuery = "&end=" + end.longitude.ToString(CultureInfo.InvariantCulture) + "," + end.latitude.ToString(CultureInfo.InvariantCulture);
+                string query = "https://api.openrouteservice.org/v2/directions/" + transport + apiKeyQuery + startQuery + endQuery;
+                string stepData = await client.GetStringAsync(query);
+                return JsonSerializer.Deserialize<ORSDirections>(stepData); ;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Message :{0} ", e.Message);
+                return null;
             }
         }
 
