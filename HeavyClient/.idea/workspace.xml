@@ -4,26 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cf59ef8-b364-4d13-850e-3a379447778f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/generated/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/tylerhawkins/examples/AppTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/2ce3e49f-de4b-4af9-8ca4-4f427c547271.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/2e6634d6-faf1-419e-9167-443e98e3df96.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/425b7107-837b-42ea-92f1-d374d82686b7.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/58b15fea-e013-4cb4-9132-48f41377ab89.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/a58444b1-b7dd-400e-9b71-edf801a4431e.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/cb9e9cd7-aab3-4e7e-9c1f-5e07ef60f0cf.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/e3f97c0b-b3f8-4e98-bd17-0de852760693.vsidx" beforeDir="false" />
+    <list default="true" id="1cf59ef8-b364-4d13-850e-3a379447778f" name="Changes" comment="HeavyClient creation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/generated/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generated/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/generated/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/generated/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/FileContentIndex/fc93a34d-ed24-4507-a782-e488845f496d.vsidx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +34,7 @@
     </option>
     <option name="myId2Visible">
       <map>
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -104,6 +89,21 @@
       <option name="presentableId" value="Default" />
       <updated>1669498738161</updated>
     </task>
+    <task id="LOCAL-00001" summary="HeavyClient">
+      <created>1669502267936</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669502267936</updated>
+    </task>
+    <task id="LOCAL-00002" summary="HeavyClient creation">
+      <created>1669502280787</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669502280787</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -116,5 +116,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="HeavyClient" />
+    <MESSAGE value="HeavyClient creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="HeavyClient creation" />
   </component>
 </project>

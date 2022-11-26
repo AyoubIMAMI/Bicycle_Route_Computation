@@ -9,7 +9,13 @@ public class Main {
         final String footDestinationAddress = "Polytech Nice-Sophia, 06410 Biot";
         final String footOriginAddress = "Lycée Polyvalent Leonard de Vinci, 06600 Antibes";
 
-        String steps = iItinerary.getItinerary(footDestinationAddress, footOriginAddress);
-        System.out.println(steps);
+        final String bikeDestinationAddress = "Rouen";
+        final String bikeOriginAddress = "Besancon";
+
+        String footSteps = iItinerary.getItinerary(footDestinationAddress, footOriginAddress);
+        System.out.println(footSteps);
+
+        String bikeSteps = iItinerary.getItinerary(bikeDestinationAddress, bikeOriginAddress);
+        System.out.println(bikeSteps);
     }
 }

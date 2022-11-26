@@ -84,9 +84,9 @@ namespace RoutingServer
             foreach (Step step in steps)
             {
                 allSteps += step.instruction;
-                allSteps += "\n     Distance to do (m): " + step.distance + "(time (s): " + step.duration + ")";
-                allSteps += "\n     Distance left  (m): " + (totalDistance - step.distance);
-                allSteps += "\n     Time left      (s): " + (totalDuration - step.duration);
+                allSteps += "\n     Distance to do (m): " + step.distance + "       time (s): " + step.duration;
+                allSteps += "\n     Distance left  (m): " + Math.Max(0, Math.Round((totalDistance -= step.distance), 2));
+                allSteps += "\n     Time left      (s): " + Math.Max(0, Math.Round((totalDuration -= step.duration), 2)) + "\n";
             }
 
             return allSteps;
