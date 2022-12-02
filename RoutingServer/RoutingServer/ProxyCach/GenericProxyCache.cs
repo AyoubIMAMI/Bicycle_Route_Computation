@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Caching;
 
-namespace ProxyCache
+namespace ProxyCach
 {
     internal class GenericProxyCache<T> where T : class
     {
@@ -18,17 +17,7 @@ namespace ProxyCache
             cache = MemoryCache.Default;
         }
 
-        public T Get(string key)
-        {
-            return null;
-        }
-
-        public T Get(string key, object[] arguments)
-        {
-            return null;
-        }
-
-        private T moijmenfiche(string key, object[] arguments)
+        private T Get(string key, object[] arguments)
         {
             T content = cache[key] as T;
 

@@ -15,6 +15,7 @@ namespace RoutingServer
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
     public class Itinerary : IItinerary
     {
+        //TODO DELETE HTTPCLIENT
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
         public static readonly HttpClient client = new HttpClient();
 
@@ -22,18 +23,24 @@ namespace RoutingServer
         {
             OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall();
             JCDecauxCall jCDecauxCall = new JCDecauxCall();
+            Deserializer deserializer = new Deserializer();
 
-            await openRouteServiceCall.FillUpDataFromLocation(destinationAddress, originAddress);
+            string destinationData = await openRouteServiceCall.GetDataFromLocation(destinationAddress);
+            string originData = await openRouteServiceCall.GetDataFromLocation(originAddress);
+            ORSGeocode orsDestination = deserializer.GetORSGeocodeObject(destinationData);
+            ORSGeocode orsOrigin = deserializer.GetORSGeocodeObject(originData);
 
-            string destinationCity = openRouteServiceCall.GetCity(0);
-            string originCity = openRouteServiceCall.GetCity(1);
+            string destinationCity = orsDestination.geocoding.query.parsed_text.city;
+            string originCity = orsOrigin.geocoding.query.parsed_text.city;
 
-            Position destinationCoordinates = openRouteServiceCall.GetCoordinates(0);
-            Position originCoordinates = openRouteServiceCall.GetCoordinates(1);
+            Position destinationCoordinates = positionFromOrsObject(orsDestination);
+            Position originCoordinates = positionFromOrsObject(orsOrigin);
 
-            ORSDirections foot = await openRouteServiceCall.GetStepData(originCoordinates, destinationCoordinates, "foot-walking");
+            string footStepData = await openRouteServiceCall.GetStepData(originCoordinates, destinationCoordinates, "foot-walking");
+            ORSDirections foot = deserializer.GetStepData(footStepData);
 
-            List<JCDStation> stations = await jCDecauxCall.GetStationsFromContract(destinationCity);
+            string destinationStationsData = await jCDecauxCall.GetStationsFromContract(destinationCity);
+            List<JCDStation> stations = deserializer.GetStationsList(destinationStationsData);
 
             if (stations == null)
             {
@@ -45,7 +52,8 @@ namespace RoutingServer
 
             if (!destinationCity.Equals(originCity))
             {
-                List<JCDStation> originStations = await jCDecauxCall.GetStationsFromContract(originCity);
+                string originStationsData = await jCDecauxCall.GetStationsFromContract(originCity);
+                List<JCDStation> originStations = deserializer.GetStationsList(originStationsData);
                 if (originStations == null)
                 {
                     return StepsByFoot(originAddress, destinationAddress, foot);
@@ -55,9 +63,12 @@ namespace RoutingServer
             else
                 closestStationFromOrigin = ClosestStationFromLocation(stations, originCoordinates);
 
-            ORSDirections originStation = await openRouteServiceCall.GetStepData(originCoordinates, closestStationFromOrigin.position, "foot-walking");
-            ORSDirections stationToStation = await openRouteServiceCall.GetStepData(closestStationFromOrigin.position, closestStationFromDestination.position, "cycling-regular");
-            ORSDirections stationDestination = await openRouteServiceCall.GetStepData(closestStationFromDestination.position, destinationCoordinates, "foot-walking");
+            string originStationData = await openRouteServiceCall.GetStepData(originCoordinates, closestStationFromOrigin.position, "foot-walking");
+            ORSDirections originStation = deserializer.GetStepData(originStationData);
+            string stationToStationData = await openRouteServiceCall.GetStepData(closestStationFromOrigin.position, closestStationFromDestination.position, "cycling-regular");
+            ORSDirections stationToStation = deserializer.GetStepData(stationToStationData);
+            string stationDestinationData = await openRouteServiceCall.GetStepData(closestStationFromDestination.position, destinationCoordinates, "foot-walking");
+            ORSDirections stationDestination = deserializer.GetStepData(stationDestinationData);
 
             double originStationDuration = originStation.features[0].properties.segments[0].duration;
             double stationToStationDuration = stationToStation.features[0].properties.segments[0].duration;
@@ -72,6 +83,14 @@ namespace RoutingServer
 
             //return string bike steps
             return StepsByBike(originAddress, destinationAddress, closestStationFromOrigin, closestStationFromDestination, originStation, stationToStation, stationDestination);
+        }
+
+        private Position positionFromOrsObject(ORSGeocode orsObject)
+        {
+            float[] coordinates = orsObject.features[0].geometry.coordinates;
+            Double longitude = Convert.ToDouble(coordinates[0]);
+            Double latitude = Convert.ToDouble(coordinates[1]);
+            return new Position(latitude, longitude);
         }
 
         private string Steps(ORSDirections directions)

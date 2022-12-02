@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-using static RoutingServer.Itinerary;
-using System.Text.Json;
+using static ProxyCach.Proxy;
 
-namespace RoutingServer
+namespace ProxyCach
 {
     internal class JCDecauxCall
     {
@@ -29,7 +28,5 @@ namespace RoutingServer
                 return null;
             }
         }
-
     }
-
 }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProxyCache")]
+[assembly: AssemblyTitle("ProxyCach")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
-[assembly: AssemblyProduct("ProxyCache")]
+[assembly: AssemblyProduct("ProxyCach")]
 [assembly: AssemblyCopyright("Copyright © HP 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("38769bc4-5660-4674-86ca-ebc26073b811")]
+[assembly: Guid("0c85be12-ebe3-46bc-ad4a-5ab1170cf4b6")]
 
 // Version information for an assembly consists of the following four values:
 //
