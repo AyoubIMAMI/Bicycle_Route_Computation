@@ -14,7 +14,7 @@ namespace RoutingServer
         {
             return JsonSerializer.Deserialize<List<JCDStation>>(json);
         }
-
+        /*
         public ORSGeocode GetORSGeocodeObject(string json)
         {
             ORSGeocode orsObject = JsonSerializer.Deserialize<ORSGeocode>(json);
@@ -24,6 +24,6 @@ namespace RoutingServer
         internal ORSDirections GetStepData(string json)
         {
             return JsonSerializer.Deserialize<ORSDirections>(json);
-        }
+        }*/
     }
 }
