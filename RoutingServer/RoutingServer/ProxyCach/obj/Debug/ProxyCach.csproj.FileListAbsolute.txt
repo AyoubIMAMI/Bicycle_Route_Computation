@@ -5,3 +5,29 @@ C:\Users\youbi\Desktop\Cours\SI4\Middleware_&_Service_oriented_computing\Project
 C:\Users\youbi\Desktop\Cours\SI4\Middleware_&_Service_oriented_computing\Project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.csproj.CoreCompileInputs.cache
 C:\Users\youbi\Desktop\Cours\SI4\Middleware_&_Service_oriented_computing\Project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.dll
 C:\Users\youbi\Desktop\Cours\SI4\Middleware_&_Service_oriented_computing\Project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.pdb
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\ProxyCach.dll.config
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\ProxyCach.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\ProxyCach.pdb
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Buffers.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Memory.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Text.Json.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.ValueTuple.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Buffers.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Memory.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Text.Json.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\bin\Debug\System.ValueTuple.xml
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.csproj.AssemblyReference.cache
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.csproj.CoreCompileInputs.cache
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.csproj.CopyComplete
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.dll
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\ProxyCach\obj\Debug\ProxyCach.pdb

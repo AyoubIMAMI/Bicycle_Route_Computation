@@ -74,7 +74,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Deserializer.cs" />
+    <Compile Include="JsonManager.cs" />
     <Compile Include="GenericProxyCache.cs" />
     <Compile Include="IProxy.cs" />
     <Compile Include="JCDecauxCall.cs" />

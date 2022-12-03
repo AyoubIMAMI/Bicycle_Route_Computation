@@ -12,6 +12,9 @@ namespace RoutingServer
 {
     internal class OpenRouteServiceCall
     {
+        // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
+        public static readonly HttpClient client = new HttpClient();
+
         // OpenRouteService API Key = 5b3ce3597851110001cf624875e1d0ec212b4bf9ac3004e35d344ef1
         static readonly string ORSKey = "5b3ce3597851110001cf6248e2a1647c8f414cb8954a61dd9617801es";
 

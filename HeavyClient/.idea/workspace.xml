@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cf59ef8-b364-4d13-850e-3a379447778f" name="Changes" comment="HeavyClient">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/generated/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generated/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,5 +123,15 @@
     <MESSAGE value="HeavyClient creation" />
     <MESSAGE value="HeavyClient" />
     <option name="LAST_COMMIT_MESSAGE" value="HeavyClient" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.sun.xml.ws.fault.ServerSOAPFaultException" package="com.sun.xml.ws.fault" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

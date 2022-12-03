@@ -22,6 +22,8 @@ public class Parsed_Text
 public class Feature
 {
     public Geometry geometry { get; set; }
+
+    public Properties properties { get; set; }
 }
 
 public class Geometry
@@ -56,6 +58,8 @@ public class FeatureDirections
 public class Properties
 {
     public Segment[] segments { get; set; }
+
+    public string locality { get; set; }
 }
 
 public class Segment

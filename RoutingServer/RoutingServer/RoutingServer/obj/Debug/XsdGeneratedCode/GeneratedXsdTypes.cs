@@ -14,55 +14,94 @@ namespace RoutingServer.ContractTypes
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("MSBuild", "17.4.0+18d5aef85920037c9d6ff49b1215a4daf515197f")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
-    public partial class GetData
+    public partial class GetStationsFromContract
     {
         
-        private int valueField;
-        
-        private bool valueFieldSpecified;
+        private string contractField;
         
         /// <remarks/>
-        public int value
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string contract
         {
             get
             {
-                return this.valueField;
+                return this.contractField;
             }
             set
             {
-                this.valueField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool valueSpecified
-        {
-            get
-            {
-                return this.valueFieldSpecified;
-            }
-            set
-            {
-                this.valueFieldSpecified = value;
+                this.contractField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("MSBuild", "17.4.0+18d5aef85920037c9d6ff49b1215a4daf515197f")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
-    public partial class GetDataResponse
+    public partial class GetStationsFromContractResponse
     {
+        
+        private string getStationsFromContractResultField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string GetStationsFromContractResult
+        {
+            get
+            {
+                return this.getStationsFromContractResultField;
+            }
+            set
+            {
+                this.getStationsFromContractResultField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("MSBuild", "17.4.0+18d5aef85920037c9d6ff49b1215a4daf515197f")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
+    public partial class GetContracts
+    {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("MSBuild", "17.4.0+18d5aef85920037c9d6ff49b1215a4daf515197f")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
+    public partial class GetContractsResponse
+    {
+        
+        private string getContractsResultField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string GetContractsResult
+        {
+            get
+            {
+                return this.getContractsResultField;
+            }
+            set
+            {
+                this.getContractsResultField = value;
+            }
+        }
     }
 }

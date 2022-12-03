@@ -54,3 +54,4 @@ C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking
 C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\RoutingServer\obj\Debug\RoutingServer.csproj.CopyComplete
 C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\RoutingServer\obj\Debug\RoutingServer.dll
 C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\RoutingServer\obj\Debug\RoutingServer.pdb
+C:\Users\youbi\Desktop\Scolarité\École\SI4\Middleware\Biking project\Go_Biking\RoutingServer\RoutingServer\RoutingServer\obj\Debug\XsdGeneratedCode\GeneratedXsdTypes.cs

@@ -1,38 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
-using System.Text.Json;
 using System.Device.Location;
-using System.Globalization;
-using RoutingServer.ServiceReference1;
+using RoutingServer.ProxyCachCall;
 
 namespace RoutingServer
 {
-    // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
     public class Itinerary : IItinerary
     {
-        //TODO DELETE HTTPCLIENT
-        // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
-        public static readonly HttpClient client = new HttpClient();
-
         public async Task<string> GetItinerary(string destinationAddress, string originAddress)
         {
             OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall();
-            Deserializer deserializer = new Deserializer();
             ProxyClient proxyClient = new ProxyClient();
+            Deserializer deserializer = new Deserializer();
 
             string destinationData = await openRouteServiceCall.GetDataFromLocation(destinationAddress);
             string originData = await openRouteServiceCall.GetDataFromLocation(originAddress);
             ORSGeocode orsDestination = deserializer.GetORSGeocodeObject(destinationData);
             ORSGeocode orsOrigin = deserializer.GetORSGeocodeObject(originData);
 
-            string destinationCity = orsDestination.geocoding.query.parsed_text.city;
-            string originCity = orsOrigin.geocoding.query.parsed_text.city;
+            string destinationCity = orsDestination.features[0].properties.locality;
+            string originCity = orsOrigin.features[0].properties.locality;
 
             Position destinationCoordinates = positionFromOrsObject(orsDestination);
             Position originCoordinates = positionFromOrsObject(orsOrigin);
@@ -40,7 +29,7 @@ namespace RoutingServer
             string footStepData = await openRouteServiceCall.GetStepData(originCoordinates, destinationCoordinates, "foot-walking");
             ORSDirections foot = deserializer.GetStepData(footStepData);
 
-            string destinationStationsData = await jCDecauxCall.GetStationsFromContract(destinationCity);
+            string destinationStationsData = proxyClient.GetStationsFromContract(destinationCity);
             List<JCDStation> stations = deserializer.GetStationsList(destinationStationsData);
 
             if (stations == null)
@@ -53,7 +42,7 @@ namespace RoutingServer
 
             if (!destinationCity.Equals(originCity))
             {
-                string originStationsData = await jCDecauxCall.GetStationsFromContract(originCity);
+                string originStationsData = proxyClient.GetStationsFromContract(originCity);
                 List<JCDStation> originStations = deserializer.GetStationsList(originStationsData);
                 if (originStations == null)
                 {
