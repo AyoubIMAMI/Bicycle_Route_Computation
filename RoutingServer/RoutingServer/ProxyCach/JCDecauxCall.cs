@@ -4,22 +4,43 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using static ProxyCach.Proxy;
 
 namespace ProxyCach
 {
     internal class JCDecauxCall
     {
-        //JCDecaux API Key = 29383ef5f8094df302e81d893499258dc7f08a5b
-        static readonly string JCDKey = "29383ef5f8094df302e81d893499258dc7f08a5b";
+        // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
+        private readonly HttpClient client = new HttpClient();
+        JsonManager deserializer = new JsonManager();
 
-        public async Task<string> GetStationsFromContract(string city)
+        //JCDecaux API Key = 29383ef5f8094df302e81d893499258dc7f08a5b
+        private readonly string JCDKey = "29383ef5f8094df302e81d893499258dc7f08a5b";
+
+        public async Task<List<JCDStation>> GetStationsFromContract(string city)
         {
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {
-                // Get all the stations
-                return await client.GetStringAsync("https://api.jcdecaux.com/vls/v3/stations?apiKey=" + JCDKey + "&contract=" + city);
+                string stations = await client.GetStringAsync("https://api.jcdecaux.com/vls/v3/stations?apiKey=" + JCDKey + "&contract=" + city);
+                // Get all the stations from the contract
+                return deserializer.GetStationsListFromJson(stations);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<JCDContract>> GetContracts()
+        {
+            // Call asynchronous network methods in a try/catch block to handle exceptions.
+            try
+            {
+                string contracts = await client.GetStringAsync("https://api.jcdecaux.com/vls/v3/contracts?apiKey=" + JCDKey);
+                // Get all the contracts
+                return deserializer.GetContractsListFromJson(contracts);
             }
             catch (HttpRequestException e)
             {

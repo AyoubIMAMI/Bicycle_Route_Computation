@@ -1,22 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ProxyCach
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-    public class Proxy : IProxy
+    internal class Proxy : IProxy
     {
-        // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
-        public static readonly HttpClient client = new HttpClient();
+        JsonManager serializer = new JsonManager();
+        readonly string contractKey = "contracts";
 
-        public void GetData(int value)
+        public string GetStationsFromContract(string contract)
         {
+            GenericProxyCache<JCDItemStation> gpcStation = new GenericProxyCache<JCDItemStation>();
 
+            object[] arguments = { contract };
+            JCDItemStation jCDItemStation = gpcStation.Get(contract, arguments);
+            List<JCDStation> stations = jCDItemStation.GetStations();
+            return serializer.GetJsonFromStationsList(stations);
         }
+
+        public string GetContracts()
+        {
+            GenericProxyCache<JCDItemContract> gpcContract = new GenericProxyCache<JCDItemContract>();
+
+            object[] arguments = { };
+            JCDItemContract jCDItemContract = gpcContract.Get(contractKey, arguments);
+            List<JCDContract> contracts = jCDItemContract.GetContracts();
+            return serializer.GetJsonFromContractsList(contracts);
+        }
+
     }
 }

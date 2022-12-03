@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Device.Location;
 using System.Globalization;
+using RoutingServer.ServiceReference1;
 
 namespace RoutingServer
 {
@@ -22,8 +23,8 @@ namespace RoutingServer
         public async Task<string> GetItinerary(string destinationAddress, string originAddress)
         {
             OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall();
-            JCDecauxCall jCDecauxCall = new JCDecauxCall();
             Deserializer deserializer = new Deserializer();
+            ProxyClient proxyClient = new ProxyClient();
 
             string destinationData = await openRouteServiceCall.GetDataFromLocation(destinationAddress);
             string originData = await openRouteServiceCall.GetDataFromLocation(originAddress);
