@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Device.Location;
 using RoutingServer.ProxyCachCall;
+using System.Linq;
 
 namespace RoutingServer
 {
@@ -38,12 +39,9 @@ namespace RoutingServer
             ORSDirections foot = deserializer.GetStepData(footStepData);
 
             // retrieve destination stations
-            string destinationStationsData = proxyClient.GetStationsFromContract(destinationCity);
+            string destinationStationsData = proxyClient.GetStationsFromContract(GetContractOfACity(destinationCity));
             List<JCDStation> destinationStations = deserializer.GetStationsList(destinationStationsData);
             List<JCDStation> originStations;
-
-            JCDStation closestStationFromDestination;
-            JCDStation closestStationFromOrigin;
 
             if (originCity.Equals(destinationCity))
             {
@@ -56,7 +54,7 @@ namespace RoutingServer
 
             else
             {
-                string originStationsData = proxyClient.GetStationsFromContract(originCity);
+                string originStationsData = proxyClient.GetStationsFromContract(GetContractOfACity(originCity));
                 originStations = deserializer.GetStationsList(originStationsData);
 
                 if (destinationStations == null && originStations == null)
@@ -234,6 +232,22 @@ namespace RoutingServer
             }
 
             return closestStation;
+        }
+
+
+        private string GetContractOfACity(string city)
+        {
+            string jsonContracts = proxyClient.GetContracts();
+            List<JCDContract> contracts = deserializer.GetContractsList(jsonContracts);
+
+            foreach (JCDContract contract in contracts)
+            {
+                if (contract.cities != null)
+                    if (contract.cities.Contains(city))
+                        return contract.name;
+            }
+
+            return city;
         }
     }
 }
