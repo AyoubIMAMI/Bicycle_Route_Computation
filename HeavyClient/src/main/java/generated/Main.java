@@ -12,8 +12,8 @@ public class Main {
         final String bikeDestinationAddress = "Rouen";
         final String bikeOriginAddress = "Besancon";
 
-        String footSteps = iItinerary.getItinerary(footDestinationAddress, footOriginAddress);
-        System.out.println(footSteps);
+        //String footSteps = iItinerary.getItinerary(footDestinationAddress, footOriginAddress);
+        //System.out.println(footSteps);
 
         String bikeSteps = iItinerary.getItinerary(bikeDestinationAddress, bikeOriginAddress);
         System.out.println(bikeSteps);

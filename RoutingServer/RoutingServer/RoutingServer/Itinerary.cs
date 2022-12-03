@@ -9,70 +9,134 @@ namespace RoutingServer
 {
     public class Itinerary : IItinerary
     {
+
+        OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall(); // make calls to OpenRouteService API
+        ProxyClient proxyClient = new ProxyClient(); // make calls to the ProxyCache
+        Deserializer deserializer = new Deserializer(); // deserialize jsons
+
         public async Task<string> GetItinerary(string destinationAddress, string originAddress)
         {
-            OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall();
-            ProxyClient proxyClient = new ProxyClient();
-            Deserializer deserializer = new Deserializer();
-
+            // retrive data from destination and origin
             string destinationData = await openRouteServiceCall.GetDataFromLocation(destinationAddress);
             string originData = await openRouteServiceCall.GetDataFromLocation(originAddress);
             ORSGeocode orsDestination = deserializer.GetORSGeocodeObject(destinationData);
             ORSGeocode orsOrigin = deserializer.GetORSGeocodeObject(originData);
 
+            // get the cities to find eventual contracts
             string destinationCity = orsDestination.features[0].properties.locality;
             string originCity = orsOrigin.features[0].properties.locality;
 
+            // get coordinates from destination and origin
             Position destinationCoordinates = positionFromOrsObject(orsDestination);
             Position originCoordinates = positionFromOrsObject(orsOrigin);
 
+
+
+
+            // retrieve the foot directions object
             string footStepData = await openRouteServiceCall.GetStepData(originCoordinates, destinationCoordinates, "foot-walking");
             ORSDirections foot = deserializer.GetStepData(footStepData);
 
+            // retrieve destination stations
             string destinationStationsData = proxyClient.GetStationsFromContract(destinationCity);
-            List<JCDStation> stations = deserializer.GetStationsList(destinationStationsData);
+            List<JCDStation> destinationStations = deserializer.GetStationsList(destinationStationsData);
+            List<JCDStation> originStations;
 
-            if (stations == null)
-            {
-                return StepsByFoot(originAddress, destinationAddress, foot);
-            }
-
-            JCDStation closestStationFromDestination = ClosestStationFromLocation(stations, destinationCoordinates);
+            JCDStation closestStationFromDestination;
             JCDStation closestStationFromOrigin;
 
-            if (!destinationCity.Equals(originCity))
+            if (originCity.Equals(destinationCity))
+            {
+                originStations = destinationStations;
+                if (destinationStations == null)
+                    return StepsByFoot(originAddress, destinationAddress, foot);
+
+                return await GetTraveling(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress);
+            }
+
+            else
             {
                 string originStationsData = proxyClient.GetStationsFromContract(originCity);
-                List<JCDStation> originStations = deserializer.GetStationsList(originStationsData);
-                if (originStations == null)
-                {
+                originStations = deserializer.GetStationsList(originStationsData);
+
+                if (destinationStations == null && originStations == null)
                     return StepsByFoot(originAddress, destinationAddress, foot);
-                }
-                closestStationFromOrigin = ClosestStationFromLocation(originStations, originCoordinates);
+
+                else if (destinationStations == null && originStations != null)
+                    return await GetTraveling(originStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress); 
+
+                else if (destinationStations != null && originStations == null)
+                    return await GetTraveling(destinationStations, destinationStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress);
+
+                else
+                    return await GetTravelingUsingFourStations(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress);
             }
-            else
-                closestStationFromOrigin = ClosestStationFromLocation(stations, originCoordinates);
+        }
+
+        private async Task<string> GetTraveling(List<JCDStation> destinationStations, List<JCDStation> originStations, Position destinationCoordinates, Position originCoordinates, ORSDirections foot, string destinationAddress, string originAddress)
+        {
+
+            JCDStation closestStationFromDestination = ClosestStationFromLocation(destinationStations, destinationCoordinates);
+            JCDStation closestStationFromOrigin = ClosestStationFromLocation(originStations, originCoordinates);
 
             string originStationData = await openRouteServiceCall.GetStepData(originCoordinates, closestStationFromOrigin.position, "foot-walking");
             ORSDirections originStation = deserializer.GetStepData(originStationData);
+
             string stationToStationData = await openRouteServiceCall.GetStepData(closestStationFromOrigin.position, closestStationFromDestination.position, "cycling-regular");
             ORSDirections stationToStation = deserializer.GetStepData(stationToStationData);
+
             string stationDestinationData = await openRouteServiceCall.GetStepData(closestStationFromDestination.position, destinationCoordinates, "foot-walking");
             ORSDirections stationDestination = deserializer.GetStepData(stationDestinationData);
+
 
             double originStationDuration = originStation.features[0].properties.segments[0].duration;
             double stationToStationDuration = stationToStation.features[0].properties.segments[0].duration;
             double stationDestinationDuration = stationDestination.features[0].properties.segments[0].duration;
 
             double footDuration = foot.features[0].properties.segments[0].duration;
-
             if (footDuration < (originStationDuration + stationToStationDuration + stationDestinationDuration))
             {
                 return StepsByFoot(originAddress, destinationAddress, foot);
             }
 
-            //return string bike steps
             return StepsByBike(originAddress, destinationAddress, closestStationFromOrigin, closestStationFromDestination, originStation, stationToStation, stationDestination);
+        }
+
+        private async Task<string> GetTravelingUsingFourStations(List<JCDStation> destinationStations, List<JCDStation> originStations,
+            Position destinationCoordinates, Position originCoordinates, ORSDirections foot, string destinationAddress, string originAddress)
+        {
+
+            JCDStation closestStationFromDestination = ClosestStationFromLocation(destinationStations, destinationCoordinates);
+            JCDStation closestStationFromLastStation = ClosestStationFromLocation(destinationStations, closestStationFromDestination.position);
+
+            JCDStation closestStationFromOrigin = ClosestStationFromLocation(originStations, originCoordinates);
+            JCDStation closestStationFromFirstStation = ClosestStationFromLocation(destinationStations, closestStationFromOrigin.position);
+
+            ORSDirections originToStation = deserializer.GetStepData(await openRouteServiceCall.GetStepData(originCoordinates, closestStationFromOrigin.position, "foot-walking"));
+            ORSDirections stationToStationOrigin = deserializer.GetStepData(await openRouteServiceCall.GetStepData(closestStationFromOrigin.position, closestStationFromFirstStation.position, "cycling-regular"));
+
+            ORSDirections stationToStation = deserializer.GetStepData(await openRouteServiceCall.GetStepData(closestStationFromFirstStation.position, closestStationFromLastStation.position, "foot-walking"));
+
+            ORSDirections stationToStationDestination = deserializer.GetStepData(await openRouteServiceCall.GetStepData(closestStationFromLastStation.position, closestStationFromDestination.position, "cycling-regular"));
+            ORSDirections stationToDestination = deserializer.GetStepData(await openRouteServiceCall.GetStepData(closestStationFromDestination.position, destinationCoordinates, "foot-walking"));
+
+
+            double originToStationDuration = originToStation.features[0].properties.segments[0].duration;
+            double stationToStationOriginDuration = stationToStationOrigin.features[0].properties.segments[0].duration;
+            double stationToStationDuration = stationToStation.features[0].properties.segments[0].duration;
+            double stationToStationDestinationDuration = stationToStationDestination.features[0].properties.segments[0].duration;
+            double stationDestinationDuration = stationToDestination.features[0].properties.segments[0].duration;
+
+            double footDuration = foot.features[0].properties.segments[0].duration;
+            if (footDuration < (originToStationDuration + stationToStationOriginDuration + stationToStationDuration + stationToStationDestinationDuration + stationDestinationDuration))
+            {
+                return StepsByFoot(originAddress, destinationAddress, foot);
+            }
+
+            return StepsByBikeUsingFourStations(originAddress, destinationAddress,
+                closestStationFromOrigin, closestStationFromFirstStation,
+                closestStationFromLastStation, closestStationFromDestination,
+                originToStation, stationToStationOrigin, stationToStation, stationToStationDestination, stationToDestination);
         }
 
         private Position positionFromOrsObject(ORSGeocode orsObject)
@@ -103,22 +167,48 @@ namespace RoutingServer
 
         private string StepsByFoot(string originAddress, string destinationAddress, ORSDirections foot)
         {
-            string footDirections = "--- Steps from " + originAddress + " to " + destinationAddress + " by foot ---\n";
-            return (footDirections + Steps(foot));
+            string directions = "--- Steps from " + originAddress + " to " + destinationAddress + " by foot ---\n";
+            return (directions + Steps(foot));
         }
 
-        private string StepsByBike(string originAddress, string destinationAddress, JCDStation closestOriginStation, JCDStation closestDestinationStation, ORSDirections originStation, ORSDirections stationToStation, ORSDirections stationDestination)
+        private string StepsByBike(string originAddress, string destinationAddress,
+            JCDStation closestOriginStation, JCDStation closestDestinationStation,
+            ORSDirections originStation, ORSDirections stationToStation, ORSDirections stationDestination)
         {
-            string bikeDirections = "--- Steps from " + originAddress + " to " + closestOriginStation.name + " by foot ---\n";
-            bikeDirections += Steps(originStation);
+            string directions = "--- Steps from " + originAddress + " to " + closestOriginStation.name + " by foot ---\n";
+            directions += Steps(originStation);
 
-            bikeDirections += "\n\n--- Steps from " + closestOriginStation.name + " to " + closestDestinationStation.name + " by bike ---\n";
-            bikeDirections += Steps(stationToStation);
+            directions += "\n\n--- Steps from " + closestOriginStation.name + " to " + closestDestinationStation.name + " by bike ---\n";
+            directions += Steps(stationToStation);
 
-            bikeDirections += "\n\n--- Steps from " + closestDestinationStation.name + " to " + destinationAddress + " by foot ---\n";
-            bikeDirections += Steps(stationDestination);
+            directions += "\n\n--- Steps from " + closestDestinationStation.name + " to " + destinationAddress + " by foot ---\n";
+            directions += Steps(stationDestination);
 
-            return bikeDirections;
+            return directions;
+        }
+
+        private string StepsByBikeUsingFourStations(string originAddress, string destinationAddress,
+            JCDStation closestOriginStation, JCDStation closestStationFromFirstStation,
+            JCDStation closestStationFromLastStation, JCDStation closestDestinationStation,
+            ORSDirections originToStation, ORSDirections stationToStationOrigin, ORSDirections stationToStation,
+            ORSDirections stationToStationDestination, ORSDirections stationToDestination)
+        {
+            string directions = "--- Steps from " + originAddress + " to " + closestOriginStation.name + " by foot ---\n";
+            directions += Steps(originToStation);
+
+            directions += "\n\n--- Steps from " + closestOriginStation.name + " to " + closestStationFromFirstStation.name + " by bike ---\n";
+            directions += Steps(stationToStationOrigin);
+
+            directions += "\n\n--- Steps from " + closestStationFromFirstStation.name + " to " + closestStationFromLastStation.name + " by foot ---\n";
+            directions += Steps(stationToStation);
+
+            directions += "\n\n--- Steps from " + closestStationFromLastStation.name + " to " + closestDestinationStation.name + " by bike ---\n";
+            directions += Steps(stationToStationDestination);
+
+            directions += "\n\n--- Steps from " + closestDestinationStation.name + " to " + destinationAddress + " by foot ---\n";
+            directions += Steps(stationToDestination);
+
+            return directions;
         }
 
         private JCDStation ClosestStationFromLocation(List<JCDStation> stations, Position coordinates)
