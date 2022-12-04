@@ -25,16 +25,15 @@ public interface IItinerary {
 
     /**
      * 
-     * @param destinationAddress
-     * @param originAddress
-     * @return
+     * @param destinationAddress address to which the user wants to go
+     * @param originAddress address from which the user leaves
      *     returns java.lang.String
      */
     @WebMethod(operationName = "GetItinerary", action = "http://tempuri.org/IItinerary/GetItinerary")
     @WebResult(name = "GetItineraryResult", targetNamespace = "http://tempuri.org/")
     @RequestWrapper(localName = "GetItinerary", targetNamespace = "http://tempuri.org/", className = "generated.GetItinerary")
     @ResponseWrapper(localName = "GetItineraryResponse", targetNamespace = "http://tempuri.org/", className = "generated.GetItineraryResponse")
-    public String getItinerary(
+    void getItinerary(
         @WebParam(name = "destinationAddress", targetNamespace = "http://tempuri.org/")
         String destinationAddress,
         @WebParam(name = "originAddress", targetNamespace = "http://tempuri.org/")
