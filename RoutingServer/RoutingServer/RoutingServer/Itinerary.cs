@@ -14,8 +14,9 @@ namespace RoutingServer
         OpenRouteServiceCall openRouteServiceCall = new OpenRouteServiceCall(); // make calls to OpenRouteService API
         ProxyClient proxyClient = new ProxyClient(); // make calls to the ProxyCache
         Deserializer deserializer = new Deserializer(); // deserialize jsons
+        ActiveMQ activeMQ = new ActiveMQ(); // send messages through the queue
 
-        public async Task<string> GetItinerary(string destinationAddress, string originAddress)
+        public async void GetItinerary(string destinationAddress, string originAddress)
         {
             // retrive data from destination and origin
             string destinationData = await openRouteServiceCall.GetDataFromLocation(destinationAddress);
@@ -25,7 +26,12 @@ namespace RoutingServer
 
             // get the cities to find eventual contracts
             string destinationCity = orsDestination.features[0].properties.locality;
+            if (destinationCity == null)
+                destinationCity = orsDestination.geocoding.query.parsed_text.city;
+
             string originCity = orsOrigin.features[0].properties.locality;
+            if (originCity == null)
+                originCity = orsOrigin.geocoding.query.parsed_text.city;
 
             // get coordinates from destination and origin
             Position destinationCoordinates = positionFromOrsObject(orsDestination);
@@ -47,9 +53,9 @@ namespace RoutingServer
             {
                 originStations = destinationStations;
                 if (destinationStations == null)
-                    return StepsByFoot(originAddress, destinationAddress, foot);
+                    activeMQ.Queue(StepsByFoot(originAddress, destinationAddress, foot));
 
-                return await GetTraveling(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress);
+                activeMQ.Queue(await GetTraveling(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress));
             }
 
             else
@@ -58,16 +64,16 @@ namespace RoutingServer
                 originStations = deserializer.GetStationsList(originStationsData);
 
                 if (destinationStations == null && originStations == null)
-                    return StepsByFoot(originAddress, destinationAddress, foot);
+                    activeMQ.Queue(StepsByFoot(originAddress, destinationAddress, foot));
 
                 else if (destinationStations == null && originStations != null)
-                    return await GetTraveling(originStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress); 
+                    activeMQ.Queue(await GetTraveling(originStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress)); 
 
                 else if (destinationStations != null && originStations == null)
-                    return await GetTraveling(destinationStations, destinationStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress);
+                    activeMQ.Queue(await GetTraveling(destinationStations, destinationStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress));
 
                 else
-                    return await GetTravelingUsingFourStations(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress);
+                    activeMQ.Queue(await GetTravelingUsingFourStations(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress));
             }
         }
 
@@ -242,7 +248,7 @@ namespace RoutingServer
 
             foreach (JCDContract contract in contracts)
             {
-                if (contract.cities != null)
+                if (contract.cities != null) // Besancon case : has null attributes (not only works for Besancon but also for all this kind of issue)
                     if (contract.cities.Contains(city))
                         return contract.name;
             }

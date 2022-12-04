@@ -12,6 +12,6 @@ namespace RoutingServer
     public interface IItinerary
     {
         [OperationContract]
-        Task<string> GetItinerary(string destinationAddress, string originAddress);
+        void GetItinerary(string destinationAddress, string originAddress);
     }
 }
