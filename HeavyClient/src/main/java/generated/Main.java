@@ -5,6 +5,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
 
     //Addresses examples:
@@ -35,6 +37,9 @@ public class Main {
 
         try {
 
+            // let some time to the server to compute and enqueued the directions steps
+            sleep(1000);
+
             // Create a ConnectionFactory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
@@ -58,9 +63,9 @@ public class Main {
 
             if (message instanceof TextMessage textMessage) {
                 String text = textMessage.getText();
-                System.out.println("Received: " + text);
+                System.out.println("Received: \n" + text);
             } else {
-                System.out.println("Received: " + message);
+                System.out.println("Received: \n" + message);
             }
 
             consumer.close();
@@ -77,12 +82,5 @@ public class Main {
      */
     private static void lineBreak() {
         System.out.println("\n");
-    }
-
-    /**
-     * Break 2 lines for more visibility
-     */
-    private static void linesBreak() {
-        System.out.println("\n\n");
     }
 }
