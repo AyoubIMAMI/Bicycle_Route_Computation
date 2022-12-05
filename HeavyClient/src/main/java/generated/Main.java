@@ -38,7 +38,7 @@ public class Main {
         try {
 
             // let some time to the server to compute and enqueued the directions steps
-            sleep(1000);
+            //sleep(1000);
 
             // Create a ConnectionFactory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
@@ -59,7 +59,7 @@ public class Main {
             MessageConsumer consumer = session.createConsumer(destination);
 
             // Wait for a message
-            Message message = consumer.receive(1000);
+            Message message = consumer.receive();
 
             if (message instanceof TextMessage textMessage) {
                 String text = textMessage.getText();
