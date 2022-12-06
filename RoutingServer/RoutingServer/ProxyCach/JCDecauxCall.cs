@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProxyCach
 {
+
+    /**
+     * Call the JCDecaux API
+     */
     internal class JCDecauxCall
     {
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.

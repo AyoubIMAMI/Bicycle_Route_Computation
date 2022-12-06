@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using static RoutingServer.Itinerary;
 
 namespace RoutingServer
 {
+    /**
+     * Call the OpenRouteService API
+     */
     internal class OpenRouteServiceCall
     {
         // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
@@ -39,7 +37,7 @@ namespace RoutingServer
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {//
-                // Get the location position
+                // Get the steps itinerary
                 string apiKeyQuery = "?api_key=" + ORSKey;
                 string startQuery = "&start=" + start.longitude.ToString(CultureInfo.InvariantCulture) + "," + start.latitude.ToString(CultureInfo.InvariantCulture);
                 string endQuery = "&end=" + end.longitude.ToString(CultureInfo.InvariantCulture) + "," + end.latitude.ToString(CultureInfo.InvariantCulture);

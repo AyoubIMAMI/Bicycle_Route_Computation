@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel.Description;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProxyCach
 {
     internal class SelfHosted
     {
-
+        /**
+         * Self Host
+         */
         static void Main(string[] args)
         {
             //Create a URI to serve as the base address
-            //Be careful to run Visual Studio as Admistrator or to allow VS to open new port netsh command. 
-            // Example : netsh http add urlacl url=http://+:80/MyUri user=DOMAIN\user
             Uri httpUrl = new Uri("http://localhost:8733/Design_Time_Addresses/ProxyCach/Service1/");
 
             //Create ServiceHost

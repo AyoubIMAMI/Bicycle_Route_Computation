@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel.Description;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoutingServer
 {
     internal class SelfHosted
     {
-
+        /**
+         * Self Host
+         */
         static void Main(string[] args)
         {
-            
+            //Create a URI to serve as the base address
             Uri httpUrl = new Uri("http://localhost:8733/Design_Time_Addresses/RoutingServer/Service1/");
 
             //Create ServiceHost

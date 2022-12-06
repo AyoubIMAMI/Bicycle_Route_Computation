@@ -1,4 +1,7 @@
-﻿public class ORSGeocode
+﻿/**
+ * Different classes needed to build OpenRouteService objects
+ */
+public class ORSGeocode
 {
     public Geocoding geocoding { get; set; }
     public Feature[] features { get; set; }

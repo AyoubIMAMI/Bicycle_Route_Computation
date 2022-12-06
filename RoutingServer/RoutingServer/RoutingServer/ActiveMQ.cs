@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Apache.NMS;
 using Apache.NMS.ActiveMQ;
 
 namespace RoutingServer
 {
+    /**
+     * This class is used to enqueue messages via ActiveMQ
+     */
     internal class ActiveMQ
     {
+        /**
+         * Put the text parameter in a queue
+         */
         public void Queue(string text)
         {
             // Create a Connection Factory.

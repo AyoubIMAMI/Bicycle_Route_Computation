@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using ProxyCach;
 
+/**
+ * Different classes needed to build JCDecaux objects
+ */
+
 public class JCDItemStation
 {
     List<JCDStation> stations;

@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Caching;
 
 namespace ProxyCach
 {
+    /**
+     * Full Generic Proxy Cache
+     */
     internal class GenericProxyCache<T> where T : class
     {
         private ObjectCache cache;
-        private int dt_seconds = 300;
+        private int dt_seconds = 300; // added to the expiration time
 
         public T Get(string key, object[] arguments)
         {

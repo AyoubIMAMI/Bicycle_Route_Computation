@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Device.Location;
 using RoutingServer.ProxyCachCall;
 using System.Linq;
+
+
+/**
+ * @author Ayoub IMAMI
+ */
 
 namespace RoutingServer
 {
@@ -16,6 +20,9 @@ namespace RoutingServer
         Deserializer deserializer = new Deserializer(); // deserialize jsons
         ActiveMQ activeMQ = new ActiveMQ(); // send messages through the queue
 
+        /**
+         * Main method which computes the itenerary to enqueue
+         */
         public async void GetItinerary(string destinationAddress, string originAddress)
         {
             // retrive data from destination and origin
@@ -44,42 +51,50 @@ namespace RoutingServer
             string footStepData = await openRouteServiceCall.GetStepData(originCoordinates, destinationCoordinates, "foot-walking");
             ORSDirections foot = deserializer.GetStepData(footStepData);
 
-            // retrieve destination stations
+            // retrieve destination stations whith the help of ProxyCache
             string destinationStationsData = proxyClient.GetStationsFromContract(GetContractOfACity(destinationCity));
             List<JCDStation> destinationStations = deserializer.GetStationsList(destinationStationsData);
             List<JCDStation> originStations;
 
+            // if the user moves in only one city
             if (originCity.Equals(destinationCity))
             {
                 originStations = destinationStations;
-                if (destinationStations == null)
+                if (destinationStations == null) // no stations available, foot itinerary is computed
                     activeMQ.Queue(StepsByFoot(originAddress, destinationAddress, foot));
 
+                // stations available, foot + bike itinerary is computed
                 activeMQ.Queue(await GetTraveling(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress));
             }
 
+            // the user moves from a city to another
             else
             {
+                // retrieve origin stations whith the help of ProxyCache
                 string originStationsData = proxyClient.GetStationsFromContract(GetContractOfACity(originCity));
                 originStations = deserializer.GetStationsList(originStationsData);
 
-                if (destinationStations == null && originStations == null)
+                if (destinationStations == null && originStations == null) // no stations available, foot itinerary is computed
                     activeMQ.Queue(StepsByFoot(originAddress, destinationAddress, foot));
 
-                else if (destinationStations == null && originStations != null)
+                else if (destinationStations == null && originStations != null) // only origin stations available, foot + bike itinerary is computed
                     activeMQ.Queue(await GetTraveling(originStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress)); 
 
-                else if (destinationStations != null && originStations == null)
+                else if (destinationStations != null && originStations == null) // only destination stations available, foot + bike itinerary is computed
                     activeMQ.Queue(await GetTraveling(destinationStations, destinationStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress));
 
-                else
+                else // both origin and destinations stations available, foot + bike itinerary is computed
                     activeMQ.Queue(await GetTravelingUsingFourStations(destinationStations, originStations, destinationCoordinates, originCoordinates, foot, destinationAddress, originAddress));
             }
         }
 
-        private async Task<string> GetTraveling(List<JCDStation> destinationStations, List<JCDStation> originStations, Position destinationCoordinates, Position originCoordinates, ORSDirections foot, string destinationAddress, string originAddress)
+        /**
+         * Compute itineraty depending on what is worth between walking and cycling
+         */
+        private async Task<string> GetTraveling(List<JCDStation> destinationStations, List<JCDStation> originStations,
+            Position destinationCoordinates, Position originCoordinates, ORSDirections foot, string destinationAddress, string originAddress)
         {
-
+            // get data
             JCDStation closestStationFromDestination = ClosestStationFromLocation(destinationStations, destinationCoordinates);
             JCDStation closestStationFromOrigin = ClosestStationFromLocation(originStations, originCoordinates);
 
@@ -97,6 +112,7 @@ namespace RoutingServer
             double stationToStationDuration = stationToStation.features[0].properties.segments[0].duration;
             double stationDestinationDuration = stationDestination.features[0].properties.segments[0].duration;
 
+            // check what is worth between walking and cycling
             double footDuration = foot.features[0].properties.segments[0].duration;
             if (footDuration < (originStationDuration + stationToStationDuration + stationDestinationDuration))
             {
@@ -106,10 +122,14 @@ namespace RoutingServer
             return StepsByBike(originAddress, destinationAddress, closestStationFromOrigin, closestStationFromDestination, originStation, stationToStation, stationDestination);
         }
 
+        /**
+         * Compute itineraty depending on what is worth between walking and cycling
+         * Using 4 stations in case if the cities departure and arrival are different
+         */
         private async Task<string> GetTravelingUsingFourStations(List<JCDStation> destinationStations, List<JCDStation> originStations,
             Position destinationCoordinates, Position originCoordinates, ORSDirections foot, string destinationAddress, string originAddress)
         {
-
+            // get data
             JCDStation closestStationFromDestination = ClosestStationFromLocation(destinationStations, destinationCoordinates);
             JCDStation closestStationFromLastStation = ClosestStationFromLocation(destinationStations, closestStationFromDestination.position);
 
@@ -131,6 +151,7 @@ namespace RoutingServer
             double stationToStationDestinationDuration = stationToStationDestination.features[0].properties.segments[0].duration;
             double stationDestinationDuration = stationToDestination.features[0].properties.segments[0].duration;
 
+            // check what is worth between walking and cycling
             double footDuration = foot.features[0].properties.segments[0].duration;
             if (footDuration < (originToStationDuration + stationToStationOriginDuration + stationToStationDuration + stationToStationDestinationDuration + stationDestinationDuration))
             {
@@ -143,6 +164,9 @@ namespace RoutingServer
                 originToStation, stationToStationOrigin, stationToStation, stationToStationDestination, stationToDestination);
         }
 
+        /**
+         * Convert coordinates into a position
+         */
         private Position positionFromOrsObject(ORSGeocode orsObject)
         {
             float[] coordinates = orsObject.features[0].geometry.coordinates;
@@ -151,6 +175,9 @@ namespace RoutingServer
             return new Position(latitude, longitude);
         }
 
+        /**
+         * Build a string with the itinerary steps
+         */
         private string Steps(ORSDirections directions)
         {
             string allSteps = "";
@@ -169,12 +196,18 @@ namespace RoutingServer
             return allSteps;
         }
 
+        /**
+         * Add a title with "by foot" mention to the steps itinerary
+         */
         private string StepsByFoot(string originAddress, string destinationAddress, ORSDirections foot)
         {
             string directions = "--- Steps from " + originAddress + " to " + destinationAddress + " by foot ---\n";
             return (directions + Steps(foot));
         }
 
+        /**
+         * Add titles with "by foot" and "by bike" mention to the steps itinerary
+         */
         private string StepsByBike(string originAddress, string destinationAddress,
             JCDStation closestOriginStation, JCDStation closestDestinationStation,
             ORSDirections originStation, ORSDirections stationToStation, ORSDirections stationDestination)
@@ -191,6 +224,10 @@ namespace RoutingServer
             return directions;
         }
 
+        /**
+         * Add titles with "by foot" and "by bike" mention to the steps itinerary
+         * In case if 4 stations are used
+         */
         private string StepsByBikeUsingFourStations(string originAddress, string destinationAddress,
             JCDStation closestOriginStation, JCDStation closestStationFromFirstStation,
             JCDStation closestStationFromLastStation, JCDStation closestDestinationStation,
@@ -215,6 +252,9 @@ namespace RoutingServer
             return directions;
         }
 
+        /**
+         * Get the closest station from a location
+         */
         private JCDStation ClosestStationFromLocation(List<JCDStation> stations, Position coordinates)
         {
             GeoCoordinate destinationCoordinates = new GeoCoordinate(coordinates.latitude, coordinates.longitude);
@@ -240,7 +280,9 @@ namespace RoutingServer
             return closestStation;
         }
 
-
+        /**
+         * Get the contract of a city
+         */
         private string GetContractOfACity(string city)
         {
             string jsonContracts = proxyClient.GetContracts();

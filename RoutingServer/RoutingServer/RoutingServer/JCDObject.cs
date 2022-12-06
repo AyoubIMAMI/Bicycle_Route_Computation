@@ -1,5 +1,9 @@
 ﻿using System;
 
+/**
+ * Different classes needed to build JCDecaux objects
+ */
+
 public class JCDContract
 {
     public string name { get; set; }

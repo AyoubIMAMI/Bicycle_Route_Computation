@@ -2,6 +2,10 @@
 
 namespace ProxyCach
 {
+    /**
+     * Proxy cache to avoid unecessary repetitives calls the to the JCDecaux API
+     * Check if the needed data are in the cache, otherwise call the API
+     */
     internal class Proxy : IProxy
     {
         JsonManager serializer = new JsonManager();
