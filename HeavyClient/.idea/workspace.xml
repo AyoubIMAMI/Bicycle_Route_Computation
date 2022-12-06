@@ -6,6 +6,46 @@
   <component name="ChangeListManager">
     <list default="true" id="1cf59ef8-b364-4d13-850e-3a379447778f" name="Changes" comment="HeavyClient: docs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/.vs/ClientTest/FileContentIndex/read.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/.vs/ClientTest/v17/.suo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/.vs/ClientTest/v17/.suo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/App.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/ClientTest.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/ClientTest.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/Itinerary.wsdl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/Reference.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/Reference.svcmap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/configuration.svcinfo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/configuration91.svcinfo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/item1.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Connected Services/ServiceReference1/item2.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/bin/Debug/ClientTest.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/bin/Debug/ClientTest.exe.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/bin/Debug/ClientTest.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/ClientTest.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/ClientTest.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/ClientTest.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/ClientTest.csproj.SuggestedBindingRedirects.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/ClientTest.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/ClientTest.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/DesignTimeResolveAssemblyReferences.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/ClientTest/ClientTest/obj/Debug/TempPE/Connected Services.ServiceReference1.Reference.cs.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/bin/Debug/ProxyCach.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/bin/Debug/ProxyCach.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/bin/Debug/ProxyCach.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/bin/Debug/ProxyCach.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/ProxyCach.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/ProxyCach.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/ProxyCach.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/ProxyCach.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/WcfConfigValidationData.tmp" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/WcfConfigValidationData.tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/WcfConfigValidationData.tmp" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/WcfConfigValidationData.tmp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
