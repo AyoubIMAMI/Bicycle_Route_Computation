@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 
+/**
+ * @author Ayoub IMAMI
+ */
+
 namespace ProxyCach
 {
     /**

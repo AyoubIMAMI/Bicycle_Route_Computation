@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1cf59ef8-b364-4d13-850e-3a379447778f" name="Changes" comment="HeavyClient: docs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/.vs/RoutingServer/v17/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/ProxyCach.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/ProxyCach/obj/Debug/ProxyCach.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/WcfConfigValidationData.tmp" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/WcfConfigValidationData.tmp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
