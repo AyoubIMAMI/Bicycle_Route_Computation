@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cf59ef8-b364-4d13-850e-3a379447778f" name="Changes" comment="HeavyClient">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/generated/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/generated/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/bin/Debug/RoutingServer.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/RoutingServer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/XsdGeneratedCode/GeneratedXsdTypes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../RoutingServer/RoutingServer/RoutingServer/obj/Debug/XsdGeneratedCode/GeneratedXsdTypes.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +118,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="HeavyClient creation" />

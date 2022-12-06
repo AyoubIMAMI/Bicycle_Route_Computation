@@ -1,44 +1,44 @@
 package generated;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-
 import javax.jms.*;
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
 
+/**
+ * Launch the client:
+ * Ask the user for destination and departure addresses
+ * Call RoutingServer to compute the itinerary that will be enqueued
+ * Dequeued and print the message which corresponds to the steps of the itinerary
+ *
+ * @author Ayoub IMAMI
+ */
 public class Main {
-
-    //Addresses examples:
-    /*
-    "Polytech Nice-Sophia, 06410 Biot"
-    "Lycée Polyvalent Leonard de Vinci, 06600 Antibes"
-    "Rouen"
-    "Besancon"
-    "Dieweg 69, 1180 Uccle, Belgique"
-    */
 
     public static void main(String[] args) {
 
+        // Instance of Itinerary and IItinerary to call a methode from the RoutingServer
         Itinerary itinerary = new Itinerary();
         IItinerary iItinerary = itinerary.getBasicHttpBindingIItinerary();
 
+        // Scanner to read the user inputs
         Scanner scanner = new Scanner(System.in);
 
+        // Ask for the destination address
         System.out.println("Enter your destination address:");
         String destinationAddress = scanner.nextLine();
         lineBreak();
 
+        // Ask for the departure address
         System.out.println("Enter your departure address:");
         String originAddress = scanner.nextLine();
         lineBreak();
 
+        // Call the method from the RoutingServer
         iItinerary.getItinerary(destinationAddress, originAddress);
 
+        // Retrieve the itinerary steps from the queue
         try {
-
-            // let some time to the server to compute and enqueued the directions steps
-            //sleep(1000);
 
             // Create a ConnectionFactory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
@@ -46,8 +46,6 @@ public class Main {
             // Create a Connection
             Connection connection = connectionFactory.createConnection();
             connection.start();
-
-            //connection.setExceptionListener(this);
 
             // Create a Session
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -78,7 +76,7 @@ public class Main {
     }
 
     /**
-     * Break a line for more visibility
+     * Break a line in the output for more visibility
      */
     private static void lineBreak() {
         System.out.println("\n");
